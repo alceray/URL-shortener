@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>URL Shortener</title>
+  </head>
+  <body>
+    <div>
+      {% if not short_url %}
+      <h1 style="font-family:arial">URL Shortener</h1>
+      <h3 style="font-family:arial">Enter URL to shorten</h3>
+      <form action="#" method="post">
+        <input type="text" name="url" placeholder="URL">
+        <button type="submit">Submit</button>
+      </form>
+      {% else %}
+      <p>The short URL is <a href="{{short_url}}" target="_blank">{{short_url}}</a></p>
+      <a href=""><button>Shorten another URL</button></a>
+      {% endif %}
+    </div>
+  </body>
+</html>
