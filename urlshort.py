@@ -20,29 +20,21 @@ def encode(id, base = BASE62):
         id //= baselen
     return encoded_id
 
-def decode(code, base = BASE62):
-    baselen = len(base)
-    codelen = len(code)
-    id = 0
-    for i in range(codelen):
-        id += base.find(code[i]) * (baselen ** (codelen - i - 1))
-    return id
-
 def valid_url(url):
     try:
-        response = requests.get(url)
+        requests.get(url)
         return True
     except:
         return False
 
 def valid_key(key):
-    for letter in key:
-        if letter not in BASE62:
+    for char in key:
+        if char not in BASE62:
             return False
     return True
 
-def unique_rand_num(lst = all_nums, len = max_num):
-    i = random.randrange(len)
+def unique_rand_num(lst = all_nums):
+    i = random.randrange(len(lst))
     lst[i], lst[-1] = lst[-1], lst[i]
     return lst.pop()
 
@@ -56,7 +48,8 @@ def home():
         if not valid_url(og_url):
             return 'ERROR: URL is invalid. <a href="">Try again<a>.'
         if not valid_key(new_url):
-            return 'ERROR: URL key contains invalid character(s). <a href="">Try again<a>.'
+            return '''ERROR: URL key contains invalid character(s). You can only use 0-9, a-z, and/or A-Z.
+                <a href="">Try again<a>.'''
         if new_url == "":
             new_url = encode(unique_rand_num())
         conn = sqlite3.connect('urls.sqlite')
