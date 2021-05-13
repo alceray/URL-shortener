@@ -1,12 +1,12 @@
 from flask import Flask, redirect, render_template, request, url_for
 import sqlite3
 import string
-import validators
+import requests
 from urllib.parse import urlparse
 
 app = Flask(__name__)
 
-BASE62 = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+BASE62 = string.digits + string.ascii_lowercase + string.ascii_uppercase
 host = "http://localhost:5000/"
 
 def encode(id, base = BASE62):
@@ -26,7 +26,11 @@ def decode(code, base = BASE62):
     return id
 
 def valid_url(url):
-    return validators.url(url)
+    try:
+        response = requests.get(url)
+        return True
+    except:
+        return False
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -62,3 +66,6 @@ def get_og_url(short_url):
         return 'ERROR: URL was not found.'
     conn.close()
     return redirect(og_url)
+
+if __name__ == "__main__":
+    app.run(debug=True)
