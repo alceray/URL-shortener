@@ -2,16 +2,19 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>URL Shortener</title>
+    <title>Customizable URL Shortener</title>
   </head>
   <body>
     <div>
       {% if not short_url %}
-      <h1 style="font-family:arial">URL Shortener</h1>
-      <h3 style="font-family:arial">Enter URL to shorten</h3>
+      <h1 style="font-family:arial">Customizable URL Shortener</h1>
       <form action="#" method="post">
+        <h3 style="font-family:arial">Enter URL to shorten</h3>
         <input type="text" name="url" placeholder="URL">
-        <button type="submit">Submit</button>
+        <h3 style="font-family:arial">Enter your preferred URL key (leave blank if you want a randomized URL)</h3>
+        <input type="text" name="key" placeholder="New key">
+        <br/><br/>
+        <button type="submit">Shorten</button>
       </form>
       {% else %}
       <p>The short URL is <a href="{{short_url}}" target="_blank">{{short_url}}</a></p>
